@@ -19,13 +19,15 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(["register" =>  false]);
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('search', 'SearchController')->middleware('auth');
+// Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::resource('search', 'SearchController')->middleware('auth');
 
-// Route::group(['middleware' => 'auth'], function(){
-//     Route::get('/capturar', 'SearchController@capturar')->name('capturar');
-//     Route::post('/capturar', 'SearchController@buscar')->name('buscar');
-//     Route::get('/exibir', 'SearchController@exibir')->name('exibir');
-//     Route::delete('/excluir/{id}', 'SearchController@excluir')->name('excluir');
-// });
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', 'SearchController@index')->name('root');
+    Route::get('/home', 'SearchController@index')->name('home');
+    Route::get('/capturar', 'SearchController@index')->name('capturar');
+    Route::post('/capturar', 'SearchController@store')->name('buscar');
+    Route::match(['get', 'post'],'/exibir', 'SearchController@show')->name('exibir');
+    Route::delete('/excluir/{id}', 'SearchController@destroy')->name('excluir');
+});

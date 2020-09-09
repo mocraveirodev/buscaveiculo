@@ -21,7 +21,7 @@ class CreateArtigosTable extends Migration
             $table->integer('ano');
             $table->string('combustivel');
             $table->string('portas');
-            $table->integer('quilometragem');
+            $table->string('quilometragem');
             $table->string('cambio');
             $table->string('cor');
             $table->timestamps();
